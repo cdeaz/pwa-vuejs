@@ -31,12 +31,12 @@ export default {
     tableData: undefined,
     config: [
       {
-        key: 'avatar',
+        key: 'salesdoc',
         title: 'SalesDoc.',
         type: 'number'
       },
       {
-        key: 'name',
+        key: 'status',
         title: 'Status',
         type: 'text'
       },

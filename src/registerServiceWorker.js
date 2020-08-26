@@ -1,34 +1,43 @@
-/* eslint-disable no-console */
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
-import { register } from "register-service-worker";
+Vue.use(Vuex);
 
-if (process.env.NODE_ENV === "production") {
-  register(`${process.env.BASE_URL}service-worker.js`, {
-    ready() {
-      console.log(
-        "App is being served from cache by a service worker.\n" +
-          "For more details, visit https://goo.gl/AFskqB"
-      );
-    },
-    registered() {
-      console.log("Service worker has been registered.");
-    },
-    cached() {
-      console.log("Content has been cached for offline use.");
-    },
-    updatefound() {
-      console.log("New content is downloading.");
-    },
-    updated() {
-      console.log("New content is available; please refresh.");
-    },
-    offline() {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
-    },
-    error(error) {
-      console.error("Error during service worker registration:", error);
-    }
-  });
+const state = {
+  cnum: "00",
+  cord: "00",
+  token: null
+};
+
+const mutations = {
+  set_user(state, number) {
+    state.user = number;
+  },
+  set_token(state, token) {
+    state.token = token;
+  },
+  get_token(state) {
+    return state.token;
+  },
+  login(state, cnum, cord) {
+    axios.get( cnum + cord).then((response) => {
+      if (Object.keys(response.data.results).length === 0) {
+        state.cnum = ''
+        state.token = ''
+        console.log('Connect False')
+        return false
+      } else {
+        state.username = response.data.results.login.cnum
+        state.token = response.data.results.login.token
+        console.log('Connect : ' + state.token)
+        return response.data.results.login.token
+      }
+    })
+  }
 }
+
+export default new Vuex.Store({
+  state,
+  mutations
+})
