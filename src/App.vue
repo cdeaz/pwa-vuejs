@@ -5,6 +5,10 @@
         <LoginForm :title="headerText" />
       </div>
     </div>
+    <div id="nav">
+            <router-link v-if="authenticated" to="/LoginForm" v-on:click.native="logout()" replace>Logout</router-link>
+        </div>
+    <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
 
@@ -15,10 +19,28 @@ export default {
   name: "app",
   data() {
     return {
-      headerText: "Authentification"
-    };
+      headerText: "Authentification",
+      authenticated: false,
+      mockAccount: {
+          cnum: "test",
+          cord: "test"
+      }
+    }
   },
-  components: {
+mounted() {
+    if(!this.authenticated) {
+        this.$router.replace({ name: "LoginForm" });
+    }
+},
+methods: {
+    setAuthenticated(status) {
+        this.authenticated = status;
+    },
+    logout() {
+        this.authenticated = false;
+    }
+},
+components: {
     LoginForm
   }
 };
@@ -27,5 +49,4 @@ export default {
 <style lang="scss">
 /* GLOBAL SCSS IMPORT */
 @import "./scss/main.scss";
-
 </style>

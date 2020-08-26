@@ -3,78 +3,52 @@
     <Header :title="title" />
 
     <div class="m-loginForm__group">
-      <animated-input 
-      id="cnum"
-      placeholder="Customer Number" 
-      animateBorder 
-      v-model="cnum"/>
+      <animated-input name="cnum" placeholder="Customer Number" animateBorder v-model="input.cnum"/>
     </div>
-
     <div class="m-loginForm__group">
-      <animated-input
-        id="cord"
-        placeholder="Customer Order"
-        animateBorder
-        inputType="password"
-        v-model="cord"
-      />
+      <animated-input name="cord" placeholder="Customer Order" animateBorder inputType="password" v-model="input.cord"/>
     </div>
 
-    <div class="m-loginForm__group -mg-lg">
-      <div class="m-loginForm__rememberWrapper">
-        <custom-checkbox
-          name="remember_me"
-          id="remember_me"
-          labelText="Remember Me"
-          checkbox="✔︎"
-        ></custom-checkbox>
+    
 
-        <link-button href="#" linkText="Forgot Cust">
-        </link-button>
-      </div>
-    </div>
-    <submit-button press="onLoginTap">Log In</submit-button>
+    <submit-button v-on:click="loginTap()">Log In</submit-button> 
+
   </form>
 </template>
 
 <script>
 import Header from "./inputs/Header.vue";
 import AnimatedInput from "./inputs/AnimatedInput.vue";
-import CustomCheckbox from "./inputs/CustomCheckbox.vue";
-import LinkButton from "./buttons/LinkButton.vue";
 import SubmitButton from "./buttons/SubmitButton.vue";
 
 export default {
-  name: 'login',
+  name: 'LoginForm',
   data() {
     return {
-      cnum: '',
-      cord: '',
+      input: {
+      cnum: "",
+      cord: ""
+    }
     }
   },
-  onLoginTap: function(){
-    var cnum = this.getView().byId("cnum").getValue();
-    var cord = this.getView().byId("cord").getValue();
-
-    console.log(cnum);
-    console.log(cord);
-      
-    // Customer number and customer order identification
-      const router = this.getOwnerComponent().getRouter();
-    if (cnum==='0001007260' && cord==='0100010237') {
-      router.navTo('SalesList', {
-        cnum: cnum
-      }); 
-    } else {
-      alert('Fail to connect wrong customer number or customer order');
+  methods: {
+    loginTap(){ 
+       if(this.input.cnum != "" && this.input.cord != "") {
+              if(this.input.cnum == this.$parent.mockAccount.cnum && this.input.cord == this.$parent.mockAccount.cord) {
+                this.$emit("authenticated", true);
+                this.$router.replace({ name: "secure" });
+            } else {
+                console.log("The customer order or number is incorrect");
+            }
+            } else {
+                console.log("A customer order or number must be present");
+            }
+          
     }
-        
   },
   components: {
     Header,
     AnimatedInput,
-    CustomCheckbox,
-    LinkButton,
     SubmitButton
   },
   props: {
@@ -85,5 +59,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/scss/components/forms/_loginForm.scss";
-
 </style>
