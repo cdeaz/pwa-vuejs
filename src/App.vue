@@ -1,52 +1,50 @@
 <template>
   <div id="app">
-    <div class="m-flexContainer">
-      <div class="m-formContainer">
-        <LoginForm :title="headerText" />
-      </div>
-    </div>
+    
     <div id="nav">
-            <router-link v-if="authenticated" to="/LoginForm" v-on:click.native="logout()" replace>Logout</router-link>
+            <router-link 
+            v-if="authenticated" 
+            to="/LoginForm" 
+            v-on:click.native="logout()" 
+            replace>Logout
+            </router-link>
         </div>
-    <router-view @authenticated="setAuthenticated" />
+        <main>
+          <router-view/>
+        </main>
   </div>
 </template>
 
 <script>
-import LoginForm from "./components/LoginForm.vue";
+//import LoginForm from './components/LoginForm.vue';
 
 export default {
-  name: "app",
+  name: 'App',
   data() {
     return {
-      headerText: "Authentification",
       authenticated: false,
       mockAccount: {
-          cnum: "test",
-          cord: "test"
+          cnum: 'test',
+          cord: 'test'
       }
     }
   },
-mounted() {
-    if(!this.authenticated) {
-        this.$router.replace({ name: "LoginForm" });
-    }
-},
+mounted() {},
 methods: {
     setAuthenticated(status) {
-        this.authenticated = status;
+      this.authenticated = status;
     },
     logout() {
-        this.authenticated = false;
-    }
+      this.authenticated = false;
+    },
 },
 components: {
-    LoginForm
-  }
+ //   LoginForm,
+  },
 };
 </script>
 
 <style lang="scss">
 /* GLOBAL SCSS IMPORT */
-@import "./scss/main.scss";
+@import './scss/main.scss';
 </style>

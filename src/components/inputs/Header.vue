@@ -1,6 +1,6 @@
 <template>
   <h1 class="a-header">
-    {{ title }}
+    Authentification
   </h1>
 </template>
 
