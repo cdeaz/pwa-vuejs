@@ -47,47 +47,52 @@ export default {
     tableData: undefined,
     config: [
       {
-        key: 'salesdoc',
+        key: 'salesOrderID',
         title: 'SalesDoc.',
         type: 'number',
       },
       {
-        key: 'status',
+        key: 'Status',
         title: 'Status',
         type: 'text',
       },
-      {
-        key: 'city',
-        title: 'Ship-to',
-        type: 'text',
-      },
-      {
-        key: 'companyName',
+       {
+        key: 'Createdat',
         title: 'Order received Date',
         type: 'number',
       },
       {
-        key: 'createdAt',
+        key: 'soldTo',
+        title: 'Ship-to',
+        type: 'text',
+      },
+      {
+        key: 'customerPONumber',
+        title: 'Purchase order number',
+        type: 'text',
+      },
+      {
+        key: 'soldTo',
         title: 'Sold-To party',
         type: 'number',
       },
       {
-        key: 'createdAt',
+        key: 'Createdat',
         title: 'Shipped Date',
         type: 'text',
       },
       {
-        key: 'createdAt',
+        key: 'Description',
         title: 'Material',
         type: 'text',
       },
       {
-        key: 'createdAt',
+        key: 'quantities',
         title: 'Quantities',
         type: 'number',
       },
       {
-        key: 'createdAt',
+        key: 'tracknum',
         title: 'Tracking Number',
         type: 'number',
       },
